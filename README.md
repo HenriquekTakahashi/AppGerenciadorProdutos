@@ -12,7 +12,7 @@ Distribuída como um arquivo `.jar`, utiliza um banco de dados MySQL com a tabel
 
 ## Requisitos do banco de dados
 ### Banco de Dados
-
+Certifique-se da porta do servidor ser 3307, usuário root e sem senha.
 A aplicação conecta-se a um banco MySQL.  
 Crie a tabela `produtos` com a seguinte estrutura:
 
@@ -25,4 +25,4 @@ CREATE TABLE produtos (
     preco DOUBLE NOT NULL
 );
 ```
-Certifique-se da porta do servidor ser 3307, usuário root e sem senha.
+
