@@ -55,8 +55,8 @@ public class TelaProduto extends javax.swing.JFrame {
         tabelaTbl = new javax.swing.JTable();
         qntEstoqueLbl = new javax.swing.JLabel();
         categoriaLbl = new javax.swing.JLabel();
-        categoriaTxt = new javax.swing.JTextField();
         qntEstoqueTxt = new javax.swing.JTextField();
+        categoriaCB = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,6 +68,12 @@ public class TelaProduto extends javax.swing.JFrame {
         });
 
         mensagemLbl.setText("Mensagem:");
+
+        mensagemTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mensagemTxtActionPerformed(evt);
+            }
+        });
 
         idLbl.setText("ID:");
 
@@ -136,15 +142,16 @@ public class TelaProduto extends javax.swing.JFrame {
 
         categoriaLbl.setText("Catregoria:");
 
-        categoriaTxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                categoriaTxtActionPerformed(evt);
-            }
-        });
-
         qntEstoqueTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 qntEstoqueTxtActionPerformed(evt);
+            }
+        });
+
+        categoriaCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECIONE....", "PERIFÉRICOS", "HARDWARE" }));
+        categoriaCB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                categoriaCBActionPerformed(evt);
             }
         });
 
@@ -153,9 +160,9 @@ public class TelaProduto extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(qntEstoqueLbl)
                             .addComponent(categoriaLbl)
@@ -163,32 +170,31 @@ public class TelaProduto extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(qntEstoqueTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(categoriaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(mensagemTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(cadastrarBtn)
                                 .addGap(18, 18, 18)
                                 .addComponent(deletarBtn)
                                 .addGap(18, 18, 18)
-                                .addComponent(atualizarBtn))))
+                                .addComponent(atualizarBtn))
+                            .addComponent(categoriaCB, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(6, 6, 6))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(gerenciarprotosLbl)
+                            .addComponent(precoLbl)
+                            .addComponent(descricaoLbl)
+                            .addComponent(idLbl))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(precoLbl)
-                                    .addComponent(descricaoLbl)
-                                    .addComponent(idLbl))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(idTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(pesquisaridBtn))
-                                    .addComponent(descricaoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(precoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(111, 111, 111)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(idTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(pesquisaridBtn))
+                            .addComponent(descricaoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(precoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(gerenciarprotosLbl))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(consultartodosBtn)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -197,15 +203,14 @@ public class TelaProduto extends javax.swing.JFrame {
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {idTxt, precoTxt, qntEstoqueTxt});
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {categoriaTxt, descricaoTxt});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(gerenciarprotosLbl)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(idTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(idLbl)
@@ -224,8 +229,8 @@ public class TelaProduto extends javax.swing.JFrame {
                             .addComponent(qntEstoqueTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(categoriaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(categoriaLbl))
+                            .addComponent(categoriaLbl)
+                            .addComponent(categoriaCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(mensagemLbl)
@@ -242,7 +247,7 @@ public class TelaProduto extends javax.swing.JFrame {
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {categoriaTxt, descricaoTxt, idTxt, mensagemTxt, precoTxt, qntEstoqueTxt});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {descricaoTxt, idTxt, mensagemTxt, precoTxt, qntEstoqueTxt});
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {atualizarBtn, consultartodosBtn});
 
@@ -328,9 +333,8 @@ public class TelaProduto extends javax.swing.JFrame {
                 return;
             }
             
-             //Verifica se categoria está vazia
-            String categoria = categoriaTxt.getText();
-            if (categoriaTxt == null || categoria.trim().isEmpty()){
+            //Verifica se a categoria está vazia
+            if ("SELECIONE....".equals(categoriaCB.getSelectedItem())){
                 mensagemTxt.setText("Erro: a categoria não pode estar vazia");
                 return;
             }
@@ -340,7 +344,7 @@ public class TelaProduto extends javax.swing.JFrame {
             prod.setDescricao(upDescricaoTxt);
             prod.setPreco(Double.parseDouble(precoTxt.getText()));
             prod.setQntEstoque(Integer.parseInt(qntEstoqueTxt.getText()));
-            prod.setCategoria(categoriaTxt.getText());
+            prod.setCategoria((String) categoriaCB.getSelectedItem());
             pdao.cadastrar(prod);
             
             mensagemTxt.setText("");
@@ -370,7 +374,7 @@ public class TelaProduto extends javax.swing.JFrame {
             precoTxt.setText("");
             mensagemTxt.setText("");
             qntEstoqueTxt.setText("");
-            categoriaTxt.setText("");
+            categoriaCB.setSelectedIndex(-1);
             
             //Verifica se foi deletado
             
@@ -404,7 +408,7 @@ public class TelaProduto extends javax.swing.JFrame {
             prod.setDescricao(upDescricaoTxt);
             prod.setPreco(Double.parseDouble(precoTxt.getText()));
             prod.setQntEstoque(Integer.parseInt(qntEstoqueTxt.getText()));
-            prod.setCategoria(categoriaTxt.getText());
+            prod.setCategoria((String) categoriaCB.getSelectedItem());
             
             Integer id = Integer.parseInt(idTxt.getText());
             if (idTxt == null){
@@ -427,8 +431,7 @@ public class TelaProduto extends javax.swing.JFrame {
             }
             
              //Verifica se a categoria está vazia
-            String categoria = categoriaTxt.getText();
-            if (categoriaTxt == null || categoria.trim().isEmpty()){
+            if ("SELECIONE....".equals(categoriaCB.getSelectedItem())){
                 mensagemTxt.setText("Erro: a categoria não pode estar vazia");
                 return;
             }
@@ -446,7 +449,7 @@ public class TelaProduto extends javax.swing.JFrame {
                 precoTxt.setText("");
                 mensagemTxt.setText("");
                 qntEstoqueTxt.setText("");
-                categoriaTxt.setText("");
+                categoriaCB.setSelectedItem(-1);
                 mensagemTxt.setText("ID não encontrado. Nenhum registro foi atualizado.");
             }
         
@@ -482,7 +485,7 @@ public class TelaProduto extends javax.swing.JFrame {
                 descricaoTxt.setText("");
                 precoTxt.setText("");
                 qntEstoqueTxt.setText("");
-                categoriaTxt.setText("");
+                categoriaCB.setSelectedItem(-1);
                 mensagemTxt.setText("");
                 
                 //traz as informações
@@ -490,7 +493,7 @@ public class TelaProduto extends javax.swing.JFrame {
                 descricaoTxt.setText("" + prod.getDescricao());
                 precoTxt.setText("" + prod.getPreco());
                 qntEstoqueTxt.setText("" + prod.getQntEstoque());
-                categoriaTxt.setText("" + prod.getCategoria());
+                categoriaCB.setSelectedItem("" + prod.getCategoria());
             }else { 
                 //Caso não encontre
                 //Limpa campos
@@ -498,7 +501,7 @@ public class TelaProduto extends javax.swing.JFrame {
                 descricaoTxt.setText("");
                 precoTxt.setText("");
                 qntEstoqueTxt.setText("");
-                categoriaTxt.setText("");
+                categoriaCB.setSelectedItem(-1);
                 mensagemTxt.setText("");
                 
                 mensagemTxt.setText("ID não encontrado.");
@@ -514,13 +517,17 @@ public class TelaProduto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_pesquisaridBtnActionPerformed
 
-    private void categoriaTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoriaTxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_categoriaTxtActionPerformed
-
     private void qntEstoqueTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qntEstoqueTxtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_qntEstoqueTxtActionPerformed
+
+    private void categoriaCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoriaCBActionPerformed
+        // TODO add your handling code here
+    }//GEN-LAST:event_categoriaCBActionPerformed
+
+    private void mensagemTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mensagemTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mensagemTxtActionPerformed
 
     /**
      * @param args the command line arguments
@@ -560,8 +567,8 @@ public class TelaProduto extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton atualizarBtn;
     private javax.swing.JButton cadastrarBtn;
+    private javax.swing.JComboBox<String> categoriaCB;
     private javax.swing.JLabel categoriaLbl;
-    private javax.swing.JTextField categoriaTxt;
     private javax.swing.JButton consultartodosBtn;
     private javax.swing.JButton deletarBtn;
     private javax.swing.JLabel descricaoLbl;
